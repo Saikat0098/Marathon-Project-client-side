@@ -1,0 +1,38 @@
+import { createBrowserRouter } from "react-router-dom";
+import MainLayOut from "../MainLayOut/MainLayOut";
+import Home from "../Home/Home";
+import Login from "../Pages/Login";
+import Registerd from "../Pages/Registerd";
+import Marathons from "../Pages/Marathons";
+import Dashboard from "../Pages/Dashboard";
+
+const routs = createBrowserRouter([
+    {
+        path:'/' , 
+        element:<MainLayOut></MainLayOut> , 
+        children : [
+            {
+                path:'/' , 
+                element:<Home></Home>
+            } ,
+            {
+                path:'login' , 
+                element: <Login></Login>
+            } , 
+            {
+                path:'signUp',
+                element:<Registerd></Registerd>
+            } , 
+            {
+                path:'Marathons',
+                element:<Marathons></Marathons>
+            } , 
+            {
+                path:'Dashboard',
+                element:<Dashboard></Dashboard>
+            }
+        ]
+    }
+])
+
+export default routs ; 
