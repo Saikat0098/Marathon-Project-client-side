@@ -1,9 +1,19 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
 const Login = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
+    const {googleLogin , setUser } = useContext(AuthContext)
+
+    const handleGoogleLogin = () =>{
+          googleLogin()
+          .then(result =>{
+            const user = result.user ;
+             setUser(user)
+          })
+    }
     return (
         <div className="flex h-screen items-center justify-center bg-gray-100 px-4">
             <div className="flex flex-col md:flex-row w-full max-w-[850px] shadow-lg rounded-lg overflow-hidden">
@@ -64,6 +74,7 @@ const Login = () => {
                     {/* Google Login Button */}
                     <div className="mt-6 flex items-center justify-center">
                         <button
+                        onClick={handleGoogleLogin}
                             className="border border-[#e5eaf2] rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-[#424242] hover:bg-gray-50 transition-all duration-200"
                         >
                             <img

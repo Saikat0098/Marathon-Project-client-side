@@ -1,15 +1,18 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CiMenuFries } from "react-icons/ci";
 import { AiOutlineClose } from "react-icons/ai";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-
+  const { user, logOut } = useContext(AuthContext);
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-4 bg-white py-3 flex items-center justify-between rounded-b-lg h-[60px]">
       <div className="flex items-center">
-        <div className="logo text-2xl font-bold text-[#FF5E6C]">EarthForge </div>
+        <div className="logo text-2xl font-bold text-[#FF5E6C]">
+          EarthForge{" "}
+        </div>
       </div>
 
       <ul className="items-center gap-[20px] text-[0.900rem] text-[#424242] lg:flex hidden">
@@ -20,30 +23,38 @@ const Navbar = () => {
         </NavLink>
         <NavLink to="/Marathons">
           <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-            Marathons 
+            Marathons
           </li>
         </NavLink>
         <NavLink to="/Dashboard">
           <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-          Dashboard
+            Dashboard
           </li>
         </NavLink>
-       
-       
       </ul>
 
-      <div className="flex items-center gap-[10px]">
-        <Link to="/login">
-          <button className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-[#FF5E6C] transition-all duration-300 sm:flex hidden">
-            Sign in
-          </button>
-        </Link>
-        <Link to="/signUp">
+      {user?.email ? (
+      <div className="flex gap-6">
+         <img className="w-10 h-10 rounded-full" src={user?.email && user.photoURL} alt="" />
+
           <button className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex hidden">
-            Sign up
-          </button>
-        </Link>
+          LogOut
+         </button>
       </div>
+      ) : (
+        <div className="flex items-center gap-[10px]">
+          <Link to="/login">
+            <button className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize hover:text-[#FF5E6C] transition-all duration-300 sm:flex hidden">
+              Sign in
+            </button>
+          </Link>
+          <Link to="/signUp">
+            <button className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex hidden">
+              Sign up
+            </button>
+          </Link>
+        </div>
+      )}
 
       {mobileSidebarOpen ? (
         <AiOutlineClose
