@@ -5,6 +5,7 @@ import Login from "../Pages/Login";
 import Registerd from "../Pages/Registerd";
 import Marathons from "../Pages/Marathons";
 import Dashboard from "../Pages/Dashboard";
+import MarathonDetailsPage from "../Components/MarathonDetailsPage";
 
 const routs = createBrowserRouter([
     {
@@ -25,8 +26,15 @@ const routs = createBrowserRouter([
             } , 
             {
                 path:'Marathons',
-                element:<Marathons></Marathons>
+                element:<Marathons></Marathons> , 
+                loader:() => fetch('http://localhost:5500/addMarathon')
             } , 
+            {
+                path:'marathonDetails/:id',
+                element:<MarathonDetailsPage></MarathonDetailsPage> , 
+                
+                loader:() => fetch(`http://localhost:5500/addMarathon`)
+            },
             {
                 path:'Dashboard',
                 element:<Dashboard></Dashboard>

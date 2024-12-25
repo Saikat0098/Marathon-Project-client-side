@@ -1,28 +1,15 @@
+import axios from "axios";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import Swal from "sweetalert2";
 
-const AddMarathon = ({ user, userName }) => {
+const AddMarathon = () => {
   const [marathonDetails, setMarathonDetails] = useState({
-    title: "",
-    startRegistration: null,
-    endRegistration: null,
-    marathonStart: null,
-    location: "",
-    distance: "",
-    description: "",
-    image: "",
-    createdAt: new Date(),
-    totalRegistrations: 0,
+     
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setMarathonDetails((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  
 
   const handleDateChange = (name, date) => {
     setMarathonDetails((prev) => ({
@@ -31,30 +18,35 @@ const AddMarathon = ({ user, userName }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit =  (e) => {
     e.preventDefault();
+    const formData = new FormData(e.target);
+    const addMarathonData = Object.fromEntries(formData.entries());
 
-    // Mock database submission (replace with actual DB logic)
-    try {
-      // Assume "addMarathon" is a function to store marathon details in your database
-      await addMarathon({ ...marathonDetails, userEmail: user?.email, userName });
-      alert("Marathon successfully created!");
-      setMarathonDetails({
-        title: "",
-        startRegistration: null,
-        endRegistration: null,
-        marathonStart: null,
-        location: "",
-        distance: "",
-        description: "",
-        image: "",
-        createdAt: new Date(),
-        totalRegistrations: 0,
-      });
-    } catch (error) {
-      console.error("Failed to create marathon:", error);
-      alert("Something went wrong. Please try again.");
-    }
+
+    axios.post('http://localhost:5500/addMarathon' , addMarathonData)
+    .then(result => {
+        if(result.data.insertedId){
+        
+
+          Swal.fire({
+            title: 'success!',
+            text: 'Do you want to continue',
+            icon: 'success',
+            confirmButtonText: 'Cool' ,
+        
+
+          }
+         
+
+        ) ;
+         
+        }
+       
+    })
+      
+    
+    
   };
 
   return (
@@ -76,8 +68,8 @@ const AddMarathon = ({ user, userName }) => {
               name="title"
               placeholder="Enter marathon title"
               className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
-              value={marathonDetails.title}
-              onChange={handleChange}
+             
+            
               required
             />
           </div>
@@ -95,7 +87,9 @@ const AddMarathon = ({ user, userName }) => {
                 onChange={(date) => handleDateChange("startRegistration", date)}
                 className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
                 dateFormat="yyyy-MM-dd"
-                placeholderText="Select start date"
+                placeholderText="Select start date" 
+                name="startRegistrationDate"
+
                 required
               />
             </div>
@@ -111,6 +105,7 @@ const AddMarathon = ({ user, userName }) => {
                 className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
                 dateFormat="yyyy-MM-dd"
                 placeholderText="Select end date"
+                name="endRegistrationDate"
                 required
               />
             </div>
@@ -129,6 +124,7 @@ const AddMarathon = ({ user, userName }) => {
               className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
               dateFormat="yyyy-MM-dd"
               placeholderText="Select marathon start date"
+              name="marathonStartDate"
               required
             />
           </div>
@@ -145,8 +141,7 @@ const AddMarathon = ({ user, userName }) => {
               name="location"
               placeholder="Enter location"
               className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
-              value={marathonDetails.location}
-              onChange={handleChange}
+            
               required
             />
           </div>
@@ -161,11 +156,10 @@ const AddMarathon = ({ user, userName }) => {
             <select
               name="distance"
               className="select select-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
-              value={marathonDetails.distance}
-              onChange={handleChange}
+              
               required
             >
-              <option value="" disabled>
+              <option value=' Select distance'>
                 Select distance
               </option>
               <option value="25k">25k</option>
@@ -186,8 +180,7 @@ const AddMarathon = ({ user, userName }) => {
               placeholder="Enter description"
               className="textarea textarea-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
               rows="3"
-              value={marathonDetails.description}
-              onChange={handleChange}
+             
               required
             ></textarea>
           </div>
@@ -204,8 +197,7 @@ const AddMarathon = ({ user, userName }) => {
               name="image"
               placeholder="Enter image URL"
               className="input input-bordered border-[#FF5E6C] focus:ring-[#FF5E6C] focus:border-[#FF5E6C] w-full"
-              value={marathonDetails.image}
-              onChange={handleChange}
+             
               required
             />
           </div>

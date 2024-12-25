@@ -26,18 +26,20 @@ const Navbar = () => {
             Marathons
           </li>
         </NavLink>
-        <NavLink to="/Dashboard">
+        {
+          user?.email &&   <NavLink to="/Dashboard">
           <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
             Dashboard
           </li>
         </NavLink>
+        }
       </ul>
 
       {user?.email ? (
       <div className="flex gap-6">
          <img className="w-10 h-10 rounded-full" src={user?.email && user.photoURL} alt="" />
 
-          <button className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex hidden">
+          <button onClick={logOut} className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex hidden">
           LogOut
          </button>
       </div>
