@@ -18,17 +18,7 @@ const AddMarathon = () => {
     }));
   };
 
-  // {
-  //   "_id": "676c492d472f7bee9872accf",
-  //   "title": "Dolorem aut providen",
-  //   "startRegistrationDate": "2010-03-25",
-  //   "endRegistrationDate": "2017-11-13",
-  //   "marathonStartDate": "1994-03-23",
-  //   "location": "Esse odit molestiae",
-  //   "distance": "25k",
-  //   "description": "Dolore velit minima ",
-  //   "image": "https://cdn.pixabay.com/photo/2022/11/07/03/38/marathon-7575499_640.jpg"
-  //   },
+   
 
   const handleSubmit =  (e) => {
     e.preventDefault();

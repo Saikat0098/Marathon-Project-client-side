@@ -3,6 +3,7 @@ import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
 import { FaPlus, FaListAlt, FaClipboardCheck, FaBars, FaTimes } from "react-icons/fa";
 import "react-tabs/style/react-tabs.css";
 import AddMarathon from "./AddMarathon";
+import MyMarathonsList from "./MyMarathonsList ";
 
 const Dashboard = () => {
   // State to manage active tab and sidebar visibility
@@ -88,7 +89,8 @@ const Dashboard = () => {
             <TabPanel>
               <div className="p-6 bg-white rounded-xl shadow-lg">
                 <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">My Marathon List</h2>
-                <p className="text-gray-700">This is the content area for viewing your marathon list.</p>
+                {/* <p className="text-gray-700">This is the content area for viewing your marathon list.</p> */}
+                <MyMarathonsList></MyMarathonsList>
               </div>
             </TabPanel>
             <TabPanel>
