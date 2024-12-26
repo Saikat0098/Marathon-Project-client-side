@@ -57,7 +57,7 @@ const MarathonDetailsCard = ({ marathonDetailsCard,   }) => {
             <p className="text-xl font-semibold text-[#FD267D] mb-4">Total Registrations:  
                 
             </p>
-           <Link to='/marathonApplyForm'>
+           <Link to={`/marathonApplyForm/${_id}`}>
            <button
               className="py-3 px-6 bg-[#FD267D] text-white font-bold rounded-full hover:bg-[#FF5E6C] transition duration-300 transform hover:scale-105"
             >

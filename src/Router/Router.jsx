@@ -38,7 +38,7 @@ const routs = createBrowserRouter([
             },
             {
 
-                path:"marathonApplyForm" , 
+                path:"marathonApplyForm/:id" , 
                 element:<MarathonApplyForm></MarathonApplyForm> , 
                 loader:() => fetch(`http://localhost:5500/addMarathon`)
 
