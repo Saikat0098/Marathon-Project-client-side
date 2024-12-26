@@ -4,7 +4,7 @@ import MarathonCard from '../Components/MarathonCard';
 
 const Marathons = () => {
     const data = useLoaderData() ; 
-     const {marathons , setMarathons } = useState(data) ; 
+    //  const {marathons , setMarathons } = useState(data) ; 
      
     // const {image , title , location , startRegistrationDate , endRegistrationDate} = data
     
