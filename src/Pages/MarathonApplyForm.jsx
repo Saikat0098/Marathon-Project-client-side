@@ -1,6 +1,8 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { useLoaderData, useParams } from "react-router-dom";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const MarathonApplyForm = () => {
   const { user } = useContext(AuthContext);
@@ -10,9 +12,47 @@ const MarathonApplyForm = () => {
   
   const [filteredMarathon] = data.filter((marathon) => marathon._id === id);
  
+  const marathonApplyId = filteredMarathon?._id ; 
+  console.log(marathonApplyId);
   const marathonTitle = filteredMarathon?.title || "Unknown Marathon";
   const marathonStartDate = new Date(filteredMarathon?.marathonStartDate).toLocaleDateString() || "Unknown Date";
 
+ 
+
+  const marathonApply =(e) =>{
+    e.preventDefault()
+    const form = e.target ; 
+    const marathonTitle = form.marathonTitle.value ; 
+    const marathonStartDate = form.marathonStartDate.value ; 
+    const firstName = form.firstName.value ; 
+    const lastName = form.lastName.value ; 
+    const contactNumber = form.contactNumber.value ; 
+    const applyEmail = user?.email ; 
+
+    const marathonApplyDetails = {marathonApplyId , marathonTitle , marathonStartDate , firstName , lastName ,contactNumber , applyEmail }
+    console.log(marathonApplyDetails);
+    axios.post('http://localhost:5500/applyMarathon' , marathonApplyDetails)
+    .then(result => {
+        console.log(result);
+        if(result.data.insertedId){
+          
+
+          Swal.fire({
+            title: 'success!',
+            text: 'Do you want to continue',
+            icon: 'success',
+            confirmButtonText: 'Cool' ,
+        
+
+          }
+         
+
+        ) ;
+         
+        }
+       
+    })
+  }
   return (
     <section>
       {/* Header Section */}
@@ -29,7 +69,7 @@ const MarathonApplyForm = () => {
         <h2 className="text-2xl font-bold text-[#FD267D] text-center mb-6">
           Register for {marathonTitle}
         </h2>
-        <form className="space-y-4">
+        <form onSubmit={marathonApply} className="space-y-4">
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaMapMarkerAlt, FaCalendarAlt } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 
@@ -13,7 +13,17 @@ const MarathonDetailsCard = ({ marathonDetailsCard,   }) => {
     _id,
     distance,
     description,
+    total_count 
   } = marathonDetailsCard;
+
+  const [totalApply , setTotalApply ] = useState([]) ; 
+
+  // console.log(tota);
+  useEffect(()=>{
+    fetch('http://localhost:5500/applyMarathon')
+    .then(res => res.json())
+    .then(data => setTotalApply(data))
+  } , [])
 
   return (
   <section className='h-screen'>
@@ -55,7 +65,7 @@ const MarathonDetailsCard = ({ marathonDetailsCard,   }) => {
 
           <div className="mt-6">
             <p className="text-xl font-semibold text-[#FD267D] mb-4">Total Registrations:  
-                
+               {total_count? total_count : 0 } 
             </p>
            <Link to={`/marathonApplyForm/${_id}`}>
            <button

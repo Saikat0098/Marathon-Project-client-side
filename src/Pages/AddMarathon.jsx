@@ -18,13 +18,34 @@ const AddMarathon = () => {
     }));
   };
 
+  // {
+  //   "_id": "676c492d472f7bee9872accf",
+  //   "title": "Dolorem aut providen",
+  //   "startRegistrationDate": "2010-03-25",
+  //   "endRegistrationDate": "2017-11-13",
+  //   "marathonStartDate": "1994-03-23",
+  //   "location": "Esse odit molestiae",
+  //   "distance": "25k",
+  //   "description": "Dolore velit minima ",
+  //   "image": "https://cdn.pixabay.com/photo/2022/11/07/03/38/marathon-7575499_640.jpg"
+  //   },
+
   const handleSubmit =  (e) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
-    const addMarathonData = Object.fromEntries(formData.entries());
-
-
-    axios.post('http://localhost:5500/addMarathon' , addMarathonData)
+    const formData =e.target;
+    const title = formData.title.value ; 
+    const startRegistrationDate = formData.startRegistrationDate.value ; 
+    const endRegistrationDate = formData.endRegistrationDate.value ; 
+    const marathonStartDate = formData.marathonStartDate.value ; 
+    const location = formData.location.value ; 
+    const distance = formData.distance.value ; 
+    const description = formData.description.value ; 
+    const image = formData.image.value ; 
+    const total_count = 0 ; 
+  
+    const AllMarathonData = {title ,  startRegistrationDate , endRegistrationDate , marathonStartDate , location , distance , description , image , total_count ,   }
+    console.log(AllMarathonData);
+    axios.post('http://localhost:5500/addMarathon' , AllMarathonData)
     .then(result => {
         if(result.data.insertedId){
         
