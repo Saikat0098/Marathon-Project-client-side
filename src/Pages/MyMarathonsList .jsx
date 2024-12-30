@@ -3,6 +3,7 @@ import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Modal from "../Components/Modal";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const MyMarathonsList = () => {
   const {user} = useContext(AuthContext)
@@ -18,6 +19,36 @@ const MyMarathonsList = () => {
        const {data} = await axios.get(`http://localhost:5500/addMarathon/${user?.email}`)
        setMarathons(data)
   }
+  const handelDelete =   (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        try {
+          const response =   axios.delete(`http://localhost:5500/addMarathon/${id}`);
+          if (response.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your file has been deleted.",
+              icon: "success"
+            });
+          
+          }
+        } catch (error) {
+          console.error("Error deleting marathon:", error);
+        }
+        setMarathons((prevMarathons) => prevMarathons.filter((marathon) => marathon._id !== id));
+      }
+    });
+  
+  };
+  
   const handleOpenModal = (marathonId) => {
     setSelectedMarathonId(marathonId);
     setModalOpen(true);
@@ -51,13 +82,14 @@ const MyMarathonsList = () => {
                   </td>
                   <td className="py-3 px-4 flex space-x-2">
                     <button
-                      onClick={() => handleOpenModal(marathon._id)} // Open modal with ID
+                      onClick={() => handleOpenModal(marathon._id)}  
                       className="text-blue-500 hover:text-blue-600 transition"
                       aria-label="Update"
                     >
                       <FaEdit size={20} />
                     </button>
                     <button
+                    onClick={()=> handelDelete(marathon._id)}
                       className="text-red-500 hover:text-red-600 transition"
                       aria-label="Delete"
                     >
