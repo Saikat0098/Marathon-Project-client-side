@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
   // console.log(marathon_id);
@@ -21,26 +22,35 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
 
   if (!isOpen) return null;
 
-  // const handleSubmit = async (e) => {
-  //   e.preventDefault();
-  //   const formData = new FormData(e.target);
-  //   const updateData = Object.fromEntries(formData.entries());
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const updateData = Object.fromEntries(formData.entries());
 
-  //   try {
-  //     const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
-  //     if (response.data) {
-  //       // Update the parent state
-  //       setMarathons((prevMarathons) =>
-  //         prevMarathons.map((marathon) =>
-  //           marathon._id === marathon_id ? { ...marathon, ...updateData } : marathon
-  //         )
-  //       );
-  //       onClose();
-  //     }
-  //   } catch (error) {
-  //     console.error("Failed to update marathon:", error);
-  //   }
-  // };
+    try {
+      const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
+      if (response.data) {
+        
+        Swal.fire({
+          title: 'success!',
+          text: 'Do you want to continue',
+          icon: 'success',
+          confirmButtonText: 'Cool' ,
+      
+
+        })
+        // Update the parent state
+        setMarathons((prevMarathons) =>
+          prevMarathons.map((marathon) =>
+            marathon._id === marathon_id ? { ...marathon, ...updateData } : marathon
+          )
+        );
+        onClose();
+      }
+    } catch (error) {
+      console.error("Failed to update marathon:", error);
+    }
+  };
 
   
 
@@ -60,7 +70,7 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
           </div>
       {
         sameIdMarathon.map(sameMarathon =>    
-          <form key={sameMarathon._id}   className="space-y-4">
+          <form onSubmit={handleSubmit} key={sameMarathon._id}   className="space-y-4">
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">

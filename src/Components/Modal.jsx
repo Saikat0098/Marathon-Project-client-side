@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import Swal from 'sweetalert2';
 
 const Modal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
   const [update , setUpdate ] = useState([]) ; 
@@ -25,6 +26,14 @@ const Modal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
     try {
       const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
       if (response.data) {
+        Swal.fire({
+          title: 'success!',
+          text: 'Do you want to continue',
+          icon: 'success',
+          confirmButtonText: 'Cool' ,
+      
+
+        })
         // Update the parent state
         setMarathons((prevMarathons) =>
           prevMarathons.map((marathon) =>
