@@ -4,6 +4,7 @@ import { FaPlus, FaListAlt, FaClipboardCheck, FaBars, FaTimes } from "react-icon
 import "react-tabs/style/react-tabs.css";
 import AddMarathon from "./AddMarathon";
 import MyMarathonsList from "./MyMarathonsList ";
+import MyApplyList from "./MyApplyList";
 
 const Dashboard = () => {
   // State to manage active tab and sidebar visibility
@@ -96,8 +97,8 @@ const Dashboard = () => {
             <TabPanel>
               <div className="p-6 bg-white rounded-xl shadow-lg">
                 <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">My Apply List</h2>
-                <p className="text-gray-700">This is the content area for applied marathons.</p>
-              </div>
+                <MyApplyList></MyApplyList>
+              </div>                
             </TabPanel>
           </Tabs>
         </div>

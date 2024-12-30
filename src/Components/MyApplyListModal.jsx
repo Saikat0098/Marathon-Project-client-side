@@ -1,74 +1,66 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../AuthProvider/AuthProvider";
-import { useLoaderData, useParams } from "react-router-dom";
-import axios from "axios";
-import Swal from "sweetalert2";
+import axios from 'axios';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../AuthProvider/AuthProvider';
 
-const MarathonApplyForm = () => {
-  const { user } = useContext(AuthContext);
-  const data = useLoaderData();
-  const { id } = useParams();
+const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
+  // console.log(marathon_id);
+  const {user} = useContext(AuthContext)
+  const [update , setUpdate ] = useState([]) ; 
+   useEffect(() => {
+    fetch('http://localhost:5500/applyMarathon')
+    .then(res => res.json())
+    .then(data => setUpdate(data))
+  } , [])
+
+ 
+ 
+ 
+  const sameIdMarathon = update.filter((marathon) => marathon._id === marathon_id);
+  // console.log("modal" , sameIdMarathon);
+  
+
+  if (!isOpen) return null;
+
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+  //   const formData = new FormData(e.target);
+  //   const updateData = Object.fromEntries(formData.entries());
+
+  //   try {
+  //     const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
+  //     if (response.data) {
+  //       // Update the parent state
+  //       setMarathons((prevMarathons) =>
+  //         prevMarathons.map((marathon) =>
+  //           marathon._id === marathon_id ? { ...marathon, ...updateData } : marathon
+  //         )
+  //       );
+  //       onClose();
+  //     }
+  //   } catch (error) {
+  //     console.error("Failed to update marathon:", error);
+  //   }
+  // };
 
   
-  const [filteredMarathon] = data.filter((marathon) => marathon._id === id);
- 
-  const marathonApplyId = filteredMarathon?._id ; 
-  console.log(marathonApplyId);
-  const marathonTitle = filteredMarathon?.title || "Unknown Marathon";
-  const marathonStartDate = new Date(filteredMarathon?.marathonStartDate).toLocaleDateString() || "Unknown Date";
 
- 
-
-  const marathonApply =(e) =>{
-    e.preventDefault()
-    const form = e.target ; 
-    const marathonTitle = form.marathonTitle.value ; 
-    const marathonStartDate = form.marathonStartDate.value ; 
-    const firstName = form.firstName.value ; 
-    const lastName = form.lastName.value ; 
-    const contactNumber = form.contactNumber.value ; 
-    const applyEmail = user?.email ; 
-
-    const marathonApplyDetails = {marathonApplyId , marathonTitle , marathonStartDate , firstName , lastName ,contactNumber , applyEmail }
-     axios.post('http://localhost:5500/applyMarathon' , marathonApplyDetails)
-    .then(result => {
-        console.log(result);
-        if(result.data.insertedId){
-          
-
-          Swal.fire({
-            title: 'success!',
-            text: 'Do you want to continue',
-            icon: 'success',
-            confirmButtonText: 'Cool' ,
-        
-
-          }
-         
-
-        ) ;
-         
-        }
-       
-    })
-  }
   return (
-    <section>
-      {/* Header Section */}
-      <div className="h-96 text-5xl mt-14">
-        <div className="bg-gradient-to-r from-[#FF5E6C] to-pink-600 mt-10">
-          <div className="w-full h-56 flex justify-center items-center">
-            <h2 className="text-center font-extrabold text-5xl text-white">Marathon Register Form</h2>
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 overflow-y-auto">
+      <div className="relative w-full max-w-2xl bg-white rounded-xl shadow-xl">
+        <div className="p-4 sm:p-6 md:p-8">
+          <div className="flex items-center justify-between mb-6">
+            <h2 className="text-xl font-semibold text-gray-900">Add Marathon</h2>
+            <button
+              onClick={onClose}
+              className="p-2 text-gray-400 hover:text-gray-500 rounded-full"
+            >
+              <span className="sr-only">Close</span>
+              ×
+            </button>
           </div>
-        </div>
-      </div>
-
-      {/* Form Section */}
-      <div className="max-w-xl mx-auto p-6 bg-white shadow-lg rounded-lg">
-        <h2 className="text-2xl font-bold text-[#FD267D] text-center mb-6">
-          Register for {marathonTitle}
-        </h2>
-        <form onSubmit={marathonApply} className="space-y-4">
+      {
+        sameIdMarathon.map(sameMarathon =>    
+          <form key={sameMarathon._id}   className="space-y-4">
           {/* Email Field */}
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">
@@ -78,7 +70,7 @@ const MarathonApplyForm = () => {
               type="email"
               id="email"
               name="email"
-              value={user?.email || ""}
+              value={sameMarathon?.applyEmail || ""}
               readOnly
               className="w-full p-3 bg-gray-100 text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
             />
@@ -93,7 +85,7 @@ const MarathonApplyForm = () => {
               type="text"
               id="marathonTitle"
               name="marathonTitle"
-              value={marathonTitle}
+              value={sameMarathon.marathonTitle}
               readOnly
               className="w-full p-3 bg-gray-100 text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
             />
@@ -108,7 +100,7 @@ const MarathonApplyForm = () => {
               type="text"
               id="marathonStartDate"
               name="marathonStartDate"
-              value={marathonStartDate}
+              value={sameMarathon.marathonStartDate}
               readOnly
               className="w-full p-3 bg-gray-100 text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
             />
@@ -123,6 +115,7 @@ const MarathonApplyForm = () => {
               type="text"
               id="firstName"
               name="firstName"
+              defaultValue={sameMarathon.firstName}
               className="w-full p-3 bg-white text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
               placeholder="Enter your first name"
               required
@@ -138,6 +131,7 @@ const MarathonApplyForm = () => {
               type="text"
               id="lastName"
               name="lastName"
+              defaultValue={sameMarathon.lastName}
               className="w-full p-3 bg-white text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
               placeholder="Enter your last name"
               required
@@ -153,24 +147,14 @@ const MarathonApplyForm = () => {
               type="tel"
               id="contactNumber"
               name="contactNumber"
+              defaultValue={sameMarathon.contactNumber}
               className="w-full p-3 bg-white text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
               placeholder="Enter your contact number"
               required
             />
           </div>
-
-          {/* Additional Info */}
-          <div>
-            <label htmlFor="additionalInfo" className="block text-sm font-medium text-gray-700">
-              Additional Info
-            </label>
-            <textarea
-              id="additionalInfo"
-              name="additionalInfo"
-              className="w-full p-3 bg-white text-gray-700 rounded-lg border border-gray-300 focus:ring-[#FD267D] focus:border-[#FD267D]"
-              placeholder="Enter any additional info"
-            ></textarea>
-          </div>
+ 
+     
 
           {/* Submit Button */}
           <div className="mt-6">
@@ -178,13 +162,17 @@ const MarathonApplyForm = () => {
               type="submit"
               className="w-full py-3 bg-gradient-to-r from-[#FD267D] to-[#FF5E6C] text-white font-bold rounded-lg hover:from-[#FF5E6C] hover:to-[#FD267D] transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-[#FD267D]"
             >
-              Submit Registration
+              Submit Registration update
             </button>
           </div>
         </form>
+        )
+      }
+      
+        </div>
       </div>
-    </section>
+    </div>
   );
 };
 
-export default MarathonApplyForm;
+export default MyApplyListModal;

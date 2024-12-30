@@ -4,8 +4,10 @@ import Modal from "../Components/Modal";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
 import Swal from "sweetalert2";
+import Modal2 from "../Components/MyApplyListModal";
+import MyApplyListModal from "../Components/MyApplyListModal";
 
-const MyMarathonsList = () => {
+const MyApplyList = () => {
   const {user} = useContext(AuthContext)
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedMarathonId, setSelectedMarathonId] = useState(null); 
@@ -16,7 +18,7 @@ const MyMarathonsList = () => {
   }, [user]);
 
   const fetchMyMarathonPost = async() =>{
-       const {data} = await axios.get(`http://localhost:5500/addMarathon/${user?.email}`)
+       const {data} = await axios.get(`http://localhost:5500/applyMarathon/${user?.email}`)
        setMarathons(data)
   }
   const handelDelete =   (id) => {
@@ -31,7 +33,7 @@ const MyMarathonsList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`http://localhost:5500/addMarathon/${id}`);
+          const response =   axios.delete(`http://localhost:5500/applyMarathon/${id}`);
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
@@ -52,7 +54,8 @@ const MyMarathonsList = () => {
   const handleOpenModal = (marathonId) => {
     setSelectedMarathonId(marathonId);
     setModalOpen(true);
-   };
+    console.log("component",marathonId);
+  };
 
   return (
     <div className="max-w-6xl mx-auto p-6">
@@ -66,18 +69,18 @@ const MyMarathonsList = () => {
             <thead className="bg-gradient-to-r from-[#FD267D] to-[#FF5E6C] text-white">
               <tr>
                 <th className="py-3 px-4 text-left">Title</th>
-                <th className="py-3 px-4 text-left">Location</th>
-                <th className="py-3 px-4 text-left">Start Date</th>
+                <th className="py-3 px-4 text-left">Name</th>
+                <th className="py-3 px-4 text-left">Number</th>
                 <th className="py-3 px-4 text-left">Actions</th>
               </tr>
             </thead>
             <tbody>
               {marathons.map((marathon) => (
                 <tr key={marathon._id} className="border-b hover:bg-gray-100">
-                  <td className="py-3 px-4">{marathon.title}</td>
-                  <td className="py-3 px-4">{marathon.location}</td>
+                  <td className="py-3 px-4">{marathon.marathonTitle}</td>
+                  <td className="py-3 px-4">{marathon.firstName + " " +  marathon.lastName}</td>
                   <td className="py-3 px-4">
-                    {new Date(marathon.marathonStartDate).toLocaleDateString()}
+                   {marathon.contactNumber}
                   </td>
                   <td className="py-3 px-4 flex space-x-2">
                     <button
@@ -102,7 +105,7 @@ const MyMarathonsList = () => {
         </div>
       )}
 
-      <Modal
+      <MyApplyListModal
         marathon_id={selectedMarathonId} 
         setMarathons={setMarathons}
         marathons={marathons}
@@ -113,4 +116,4 @@ const MyMarathonsList = () => {
   );
 };
 
-export default MyMarathonsList;
+export default MyApplyList;
