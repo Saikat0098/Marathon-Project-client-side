@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
 import Modal from "../Components/Modal";
+import { AuthContext } from "../AuthProvider/AuthProvider";
+import axios from "axios";
 
 const MyMarathonsList = () => {
+  const {user} = useContext(AuthContext)
   const [isModalOpen, setModalOpen] = useState(false);
   const [selectedMarathonId, setSelectedMarathonId] = useState(null); 
   const [marathons, setMarathons] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:5500/addMarathon')
-      .then((res) => res.json())
-      .then((data) => setMarathons(data));
-  }, []);
+    fetchMyMarathonPost()
+  }, [user]);
 
+  const fetchMyMarathonPost = async() =>{
+       const {data} = await axios.get(`http://localhost:5500/addMarathon/${user?.email}`)
+       setMarathons(data)
+  }
   const handleOpenModal = (marathonId) => {
     setSelectedMarathonId(marathonId);
     setModalOpen(true);
@@ -69,7 +74,7 @@ const MyMarathonsList = () => {
       <Modal
         marathon_id={selectedMarathonId} 
         setMarathons={setMarathons}
-       
+        marathons={marathons}
         isOpen={isModalOpen}
         onClose={() => setModalOpen(false)}
       />

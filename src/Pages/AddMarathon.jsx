@@ -1,14 +1,16 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Swal from "sweetalert2";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const AddMarathon = () => {
   const [marathonDetails, setMarathonDetails] = useState({
      
   });
-
+ 
+  const {user} = useContext(AuthContext)
   
 
   const handleDateChange = (name, date) => {
@@ -31,9 +33,10 @@ const AddMarathon = () => {
     const distance = formData.distance.value ; 
     const description = formData.description.value ; 
     const image = formData.image.value ; 
+    const post_email = user?.email ; 
     const total_count = 0 ; 
   
-    const AllMarathonData = {title ,  startRegistrationDate , endRegistrationDate , marathonStartDate , location , distance , description , image , total_count ,   }
+    const AllMarathonData = {title ,  startRegistrationDate , endRegistrationDate , marathonStartDate , location , distance , description , image , total_count ,  post_email }
     console.log(AllMarathonData);
     axios.post('http://localhost:5500/addMarathon' , AllMarathonData)
     .then(result => {
