@@ -1,9 +1,66 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+ 
+import toast from "react-hot-toast";
+import { AuthContext } from "../AuthProvider/AuthProvider";
 
 const Registerd = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [error, setError] = useState("");
+  const {
+    createNewUser,
+    setUser,
+    updateUserProfile,
+    googleLogin,
+    setLoading,
+  } = useContext(AuthContext);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const signUpData = Object.fromEntries(formData.entries());
+    const { name, email, password, photo } = signUpData;
+
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
+    if (!passwordRegex.test(password)) {
+      setError(
+        "At least one uppercase, one lowercase, and length must be at least 6 characters."
+      );
+      return;
+    }
+
+    createNewUser(email, password)
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate("/");
+        toast.success("Successfully registered!");
+
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(() => {})
+          .catch(() => {
+            setLoading(false);
+          });
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleLogin()
+      .then((result) => {
+        const user = result.user;
+        setUser(user);
+        navigate("/");
+        toast.success("Successfully logged in with Google!");
+      })
+      .catch((err) => {
+        setError(err.message);
+      });
+  };
 
   return (
     <div className="flex h-screen items-center justify-center bg-gray-100 px-4">
@@ -26,7 +83,7 @@ const Registerd = () => {
           <p className="text-center text-sm mb-6">
             Please fill in the details to create your account.
           </p>
-          <form>
+          <form onSubmit={handleSubmit}>
             <div className="mb-4">
               <input
                 type="text"
@@ -58,7 +115,7 @@ const Registerd = () => {
                 placeholder="Password"
                 className="input input-bordered w-full"
               />
-              <label className="text-xs text-red-400"></label>
+              <label className="text-xs text-red-400">{error}</label>
               <div
                 className="absolute right-3 top-3 cursor-pointer"
                 onClick={() => setPasswordVisible(!passwordVisible)}
@@ -82,7 +139,10 @@ const Registerd = () => {
 
           {/* Google Login Button */}
           <div className="mt-6 flex items-center justify-center">
-            <button className="border border-[#e5eaf2] rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-[#424242] hover:bg-gray-50 transition-all duration-200">
+            <button
+              onClick={handleGoogleLogin}
+              className="border border-[#e5eaf2] rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-[#424242] hover:bg-gray-50 transition-all duration-200"
+            >
               <img
                 src="https://i.ibb.co/dQMmB8h/download-4-removebg-preview-1.png"
                 alt="google logo"
