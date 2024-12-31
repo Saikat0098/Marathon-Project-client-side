@@ -10,9 +10,11 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-4 bg-white py-3 flex items-center justify-between rounded-b-lg h-[60px]">
       <div className="flex items-center">
-        <div className="logo text-2xl font-bold text-[#FF5E6C]">
-          EarthForge{" "}
-        </div>
+      <div className="flex items-center space-x-2">
+                <span className="text-2xl font-bold bg-gradient-to-r from-[#FF5E6C] to-[#FD267D] bg-clip-text text-transparent">
+                  EarthForge
+                </span>
+              </div>
       </div>
 
       <ul className="items-center gap-[20px] text-[0.900rem] text-[#424242] lg:flex hidden">

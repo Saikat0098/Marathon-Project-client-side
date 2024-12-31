@@ -5,26 +5,7 @@ const FitnessLanding = () => {
   return (
     <div className="min-h-screen bg-white">
       
-      <nav className="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-lg z-50 border-b border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <span className="text-xl font-bold bg-gradient-to-r from-[#FF5E6C] to-[#FD267D] bg-clip-text text-transparent">
-              FitnessPro
-            </span>
-            {/* Mobile menu button */}
-            <button className="sm:hidden p-2 rounded-lg hover:bg-gray-100">
-              <Menu className="w-6 h-6 text-gray-600" />
-            </button>
-            {/* Desktop menu */}
-            <div className="hidden sm:flex space-x-8">
-              <a href="#" className="text-gray-600 hover:text-[#FF5E6C]">Home</a>
-              <a href="#" className="text-gray-600 hover:text-[#FF5E6C]">Programs</a>
-              <a href="#" className="text-gray-600 hover:text-[#FF5E6C]">About</a>
-              <a href="#" className="text-gray-600 hover:text-[#FF5E6C]">Contact</a>
-            </div>
-          </div>
-        </div>
-      </nav>
+     
 
       {/* Main Content */}
       <main className="pt-16">

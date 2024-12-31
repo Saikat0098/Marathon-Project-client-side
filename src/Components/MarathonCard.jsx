@@ -46,11 +46,7 @@ const MarathonCard = ({ marathonCard }) => {
             </p>
           </div>
         </div>
-
-        {/* <button onClick={logOut} className="py-[7px] text-[1rem] px-[16px] rounded-full ">
-          LogOut
-         </button> */}
-        {/* Action Button */}
+ 
         <div className="text-right">
           <Link to={`/marathonDetails/${_id}`}>
             <button
