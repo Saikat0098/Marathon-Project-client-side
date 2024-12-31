@@ -1,6 +1,8 @@
-import { Link } from 'lucide-react';
+// import { Link } from 'lucide-react';
+// import { Link } from 'lucide-react';
 import React from 'react';
 import { FaCalendarAlt, FaMapMarkerAlt } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 
 const HomePageCard = ({card}) => {
     const {image , title , location , endRegistrationDate , startRegistrationDate , _id } = card ; 
@@ -50,12 +52,13 @@ const HomePageCard = ({card}) => {
           </div>
     
          
-             <button 
-                className="py-[7px] px-[16px] text-[1rem] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex     text-right"
-              >
-                See Details  
-              </button>
-          
+          <Link  to={`/marathonDetails/${_id}`}>
+            <button
+              className="py-[7px] px-[16px] text-[1rem] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300    text-right"
+            >
+              See Details &rarr;
+            </button>
+          </Link>
      
         </div>
       </div>

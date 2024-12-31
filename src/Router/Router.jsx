@@ -7,6 +7,7 @@ import Marathons from "../Pages/Marathons";
 import Dashboard from "../Pages/Dashboard";
 import MarathonDetailsPage from "../Components/MarathonDetailsPage";
 import MarathonApplyForm from "../Pages/MarathonApplyForm";
+import NotFound from "../Pages/NotFound";
 
 const routs = createBrowserRouter([
     {
@@ -46,7 +47,11 @@ const routs = createBrowserRouter([
             {
                 path:'Dashboard',
                 element:<Dashboard></Dashboard>
-            }
+            } , 
+            {
+                path: '*' , 
+                element : <NotFound></NotFound>
+              } ,
         ]
     }
 ])

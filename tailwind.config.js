@@ -9,8 +9,9 @@ export default {
       backgroundImage:{
         bannerImg: "url('https://i.ibb.co.com/7Q1ZDBW/hero1.jpg')" ,
         bannerImg2 : "url('https://i.ibb.co.com/6BnLj92/marathon-4631285-1280.jpg')" , 
-        // bannerImg: "./src/assets/hero1.jpg"
-        // blackOverlay : "linear-gradient(to bottom , rgba(0,0,0,0) 0% ) , rgba(0,0,0.8) 100%"
+        bannerImg3 : "url('https://i.ibb.co.com/k20ZXP3/marathon-4646827-1920.jpg')" , 
+        bannerImg4 : "url('https://i.ibb.co.com/LZCcR5D/martins-zemlickis-NPFu4-Gf-FZ7-E-unsplash.jpg')" , 
+        
         blackOverlay : "linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.8) )"
       }
     },

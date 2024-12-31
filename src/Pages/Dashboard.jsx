@@ -1,10 +1,17 @@
 import React, { useState } from "react";
 import { Tab, TabList, TabPanel, Tabs } from "react-tabs";
-import { FaPlus, FaListAlt, FaClipboardCheck, FaBars, FaTimes } from "react-icons/fa";
+import {
+  FaPlus,
+  FaListAlt,
+  FaClipboardCheck,
+  FaBars,
+  FaTimes,
+} from "react-icons/fa";
 import "react-tabs/style/react-tabs.css";
 import AddMarathon from "./AddMarathon";
 import MyMarathonsList from "./MyMarathonsList ";
 import MyApplyList from "./MyApplyList";
+import PrivetRout from "../Router/PrivetRout";
 
 const Dashboard = () => {
   // State to manage active tab and sidebar visibility
@@ -25,7 +32,9 @@ const Dashboard = () => {
       {/* Banner Section */}
       <div className="bg-gradient-to-r from-[#FF5E6C] to-pink-600 mt-10">
         <div className="w-full h-56 flex justify-center items-center">
-          <h2 className="text-center font-extrabold text-5xl text-white">Dashboard</h2>
+          <h2 className="text-center font-extrabold text-5xl text-white">
+            Dashboard
+          </h2>
         </div>
       </div>
 
@@ -80,25 +89,40 @@ const Dashboard = () => {
 
         {/* Main Content */}
         <div className="ml-0 md:ml-64 flex-1 bg-gray-50 p-6 md:p-10 min-h-screen">
-          <Tabs selectedIndex={activeTab} onSelect={(index) => setActiveTab(index)}>
+          <Tabs
+            selectedIndex={activeTab}
+            onSelect={(index) => setActiveTab(index)}
+          >
             <TabPanel>
               <div className="p-6 bg-white rounded-xl shadow-lg">
-                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">Add Marathon</h2>
-                <AddMarathon />
+                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">
+                  Add Marathon
+                </h2>
+                <PrivetRout>
+                  <AddMarathon />
+                </PrivetRout>
               </div>
             </TabPanel>
             <TabPanel>
               <div className="p-6 bg-white rounded-xl shadow-lg">
-                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">My Marathon List</h2>
+                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">
+                  My Marathon List
+                </h2>
                 {/* <p className="text-gray-700">This is the content area for viewing your marathon list.</p> */}
-                <MyMarathonsList></MyMarathonsList>
+                <PrivetRout>
+                  <MyMarathonsList></MyMarathonsList>
+                </PrivetRout>
               </div>
             </TabPanel>
             <TabPanel>
               <div className="p-6 bg-white rounded-xl shadow-lg">
-                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">My Apply List</h2>
-                <MyApplyList></MyApplyList>
-              </div>                
+                <h2 className="text-3xl font-bold text-[#FF5E6C] mb-4">
+                  My Apply List
+                </h2>
+                <PrivetRout>
+                  <MyApplyList></MyApplyList>
+                </PrivetRout>
+              </div>
             </TabPanel>
           </Tabs>
         </div>

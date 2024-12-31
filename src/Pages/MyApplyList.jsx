@@ -1,68 +1,52 @@
 import React, { useContext, useEffect, useState } from "react";
 import { FaEdit, FaTrashAlt } from "react-icons/fa";
-import Modal from "../Components/Modal";
+import Swal from "sweetalert2";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import axios from "axios";
-import Swal from "sweetalert2";
-import Modal2 from "../Components/MyApplyListModal";
 import MyApplyListModal from "../Components/MyApplyListModal";
 
 const MyApplyList = () => {
-  const {user} = useContext(AuthContext)
+  const { user } = useContext(AuthContext);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [selectedMarathonId, setSelectedMarathonId] = useState(null); 
+  const [selectedMarathonId, setSelectedMarathonId] = useState(null);
   const [marathons, setMarathons] = useState([]);
+  const [search , setSearch ] = useState('')
 
   useEffect(() => {
-    fetchMyMarathonPost()
-  }, [user]);
+    fetchMyMarathonPost();
+  }, [user , search]);
 
-  const fetchMyMarathonPost = async() =>{
-       const {data} = await axios.get(`http://localhost:5500/applyMarathon/${user?.email}`)
-       setMarathons(data)
-  }
-  const handelDelete =   (id) => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
-    }).then((result) => {
-      if (result.isConfirmed) {
-        try {
-          const response =   axios.delete(`http://localhost:5500/applyMarathon/${id}`);
-          if (response.deletedCount > 0) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success"
-            });
-          
-          }
-        } catch (error) {
-          console.error("Error deleting marathon:", error);
-        }
-        setMarathons((prevMarathons) => prevMarathons.filter((marathon) => marathon._id !== id));
-      }
-    });
-  
+  const fetchMyMarathonPost = async () => {
+    const { data } = await axios.get(`http://localhost:5500/applyMarathon/${user?.email}?search=${search}`);
+    setMarathons(data);
   };
-  
+
   const handleOpenModal = (marathonId) => {
     setSelectedMarathonId(marathonId);
     setModalOpen(true);
-    console.log("component",marathonId);
   };
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-[#FD267D] mb-8">My Marathons</h1>
+      <h1 className="text-3xl font-bold text-center text-[#FD267D] mb-8">
+        My Marathons
+      </h1>
+
+      {/* Search Input Design */}
+      <div className="mb-6">
+        <input
+          type="text"
+          onChange={e => setSearch(e.target.value)}
+          placeholder="Search by marathon title..."
+          className="input input-bordered w-full rounded-lg border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#FD267D] transition duration-200"
+   
+        />
+      </div>
 
       {marathons.length === 0 ? (
-        <p className="text-center text-gray-500">You haven't created any marathons yet.</p>
+        <p className="text-center text-gray-500">
+          You haven't created any marathons yet.
+        </p>
       ) : (
         <div className="hidden sm:block overflow-x-auto">
           <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
@@ -78,20 +62,19 @@ const MyApplyList = () => {
               {marathons.map((marathon) => (
                 <tr key={marathon._id} className="border-b hover:bg-gray-100">
                   <td className="py-3 px-4">{marathon.marathonTitle}</td>
-                  <td className="py-3 px-4">{marathon.firstName + " " +  marathon.lastName}</td>
                   <td className="py-3 px-4">
-                   {marathon.contactNumber}
+                    {marathon.firstName + " " + marathon.lastName}
                   </td>
+                  <td className="py-3 px-4">{marathon.contactNumber}</td>
                   <td className="py-3 px-4 flex space-x-2">
                     <button
-                      onClick={() => handleOpenModal(marathon._id)}  
+                      onClick={() => handleOpenModal(marathon._id)}
                       className="text-blue-500 hover:text-blue-600 transition"
                       aria-label="Update"
                     >
                       <FaEdit size={20} />
                     </button>
                     <button
-                    onClick={()=> handelDelete(marathon._id)}
                       className="text-red-500 hover:text-red-600 transition"
                       aria-label="Delete"
                     >
@@ -106,7 +89,7 @@ const MyApplyList = () => {
       )}
 
       <MyApplyListModal
-        marathon_id={selectedMarathonId} 
+        marathon_id={selectedMarathonId}
         setMarathons={setMarathons}
         marathons={marathons}
         isOpen={isModalOpen}

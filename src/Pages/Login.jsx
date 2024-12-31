@@ -1,19 +1,49 @@
 import React, { useContext, useState } from 'react';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../AuthProvider/AuthProvider';
+import toast from 'react-hot-toast';
+import axios from 'axios';
 
 const Login = () => {
     const [passwordVisible, setPasswordVisible] = useState(false);
-    const {googleLogin , setUser } = useContext(AuthContext)
+    const { login, setUser, googleLogin } = useContext(AuthContext);
+    const navigate = useNavigate();
 
-    const handleGoogleLogin = () =>{
-          googleLogin()
-          .then(result =>{
-            const user = result.user ;
-             setUser(user)
-          })
-    }
+    const handleLogin = (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const loginData = Object.fromEntries(formData.entries());
+
+        login(loginData.email, loginData.password)
+            .then((result) => {
+                const user = result.user;
+                setUser(user);
+                toast.success('Login successful');
+                navigate('/');
+            })
+            .catch((error) => {
+                toast.error(error.message);
+            });
+    };
+
+    const handleGoogleLogin = async () => {
+     googleLogin()
+   
+   
+            .then((result) => {
+                const user = result.user;
+                setUser(user);
+              
+              
+                toast.success('Google login successful');
+                navigate('/');
+            })
+            .catch((err) => {
+                toast.error(err.message);
+            });
+    };
+
     return (
         <div className="flex h-screen items-center justify-center bg-gray-100 px-4">
             <div className="flex flex-col md:flex-row w-full max-w-[850px] shadow-lg rounded-lg overflow-hidden">
@@ -33,23 +63,25 @@ const Login = () => {
                         Welcome
                     </h2>
                     <p className="text-center text-sm mb-6">
-                        Login in to your account to continue.
+                        Login to your account to continue.
                     </p>
-                    <form>
+                    <form onSubmit={handleLogin}>
                         <div className="mb-4">
                             <input
                                 type="email"
                                 name="email"
                                 placeholder="Email"
                                 className="input input-bordered w-full"
+                                required
                             />
                         </div>
                         <div className="mb-4 relative">
                             <input
-                                type={passwordVisible ? "text" : "password"}
+                                type={passwordVisible ? 'text' : 'password'}
                                 name="password"
                                 placeholder="Password"
                                 className="input input-bordered w-full"
+                                required
                             />
                             <div
                                 className="absolute right-3 top-3 cursor-pointer"
@@ -74,7 +106,7 @@ const Login = () => {
                     {/* Google Login Button */}
                     <div className="mt-6 flex items-center justify-center">
                         <button
-                        onClick={handleGoogleLogin}
+                            onClick={handleGoogleLogin}
                             className="border border-[#e5eaf2] rounded-md py-2 px-4 flex items-center gap-[10px] text-[1rem] text-[#424242] hover:bg-gray-50 transition-all duration-200"
                         >
                             <img
