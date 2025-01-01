@@ -97,22 +97,16 @@ const Navbar = () => {
           </li>
         </NavLink>
         }
-          {/* <NavLink to="/" onClick={() => setMobileSidebarOpen(false)}>
-            <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize"></li>
-          </NavLink> */}
-          {/* <NavLink
-            to="/myDonations"
-            onClick={() => setMobileSidebarOpen(false)}
-          >
-            <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-              My Donations
-            </li>
-          </NavLink> */}
-          <NavLink to="/login" onClick={() => setMobileSidebarOpen(false)}>
-            <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
-              Login
-            </li>
-          </NavLink>
+          
+         {
+          user?.email ?  <button onClick={logOut} className="py-[7px] text-[1rem] px-[16px] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300  ">
+          LogOut
+         </button>:  <NavLink to="/login" onClick={() => setMobileSidebarOpen(false)}>
+          <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
+            Login
+          </li>
+        </NavLink>
+         }
         </ul>
       </aside>
     </nav>
