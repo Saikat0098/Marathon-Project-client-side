@@ -6,7 +6,7 @@ const MarathonDetailsPage = () => {
     const data = useLoaderData();
     const {id} = useParams() ; 
      const detailsCard = data.filter(data =>data._id === id )
-     console.log(detailsCard);
+      (detailsCard);
     return (
       <section>
           <div className='h-96 text-5xl mt-14'>

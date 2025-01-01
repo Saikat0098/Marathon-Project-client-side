@@ -5,12 +5,12 @@ import HomePageCard from "./HomePageCard";
 
 const HomePageCards = () => {
     const [cards, setCards] = useState([]);
-
-    const [campaignCards , setCampaignCards] = useState([]) ;
+     
+     const [campaignCards , setCampaignCards] = useState([]) ;
     const currentDate = new Date();
     const runningMarathon = cards 
     .filter((running) => new Date(running.endRegistrationDate) > currentDate) ; 
-    console.log(runningMarathon);
+     (runningMarathon);
 
 
     useEffect(() => {

@@ -13,7 +13,7 @@ const MarathonApplyForm = () => {
   const [filteredMarathon] = data.filter((marathon) => marathon._id === id);
  
   const marathonApplyId = filteredMarathon?._id ; 
-  console.log(marathonApplyId);
+   (marathonApplyId);
   const marathonTitle = filteredMarathon?.title || "Unknown Marathon";
   const marathonStartDate = new Date(filteredMarathon?.marathonStartDate).toLocaleDateString() || "Unknown Date";
 
@@ -32,7 +32,7 @@ const MarathonApplyForm = () => {
     const marathonApplyDetails = {marathonApplyId , marathonTitle , marathonStartDate , firstName , lastName ,contactNumber , applyEmail }
      axios.post('https://assignment11-server-side-six.vercel.app/applyMarathon' , marathonApplyDetails)
     .then(result => {
-        console.log(result);
+         (result);
         if(result.data.insertedId){
           
 

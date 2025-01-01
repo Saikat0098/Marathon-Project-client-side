@@ -13,7 +13,7 @@ const Modal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
  
  
   const sameIdMarathon = update.filter((marathon) => marathon._id === marathon_id);
-  // console.log("modal" , sameIdMarathon);
+  //  ("modal" , sameIdMarathon);
   
 
   if (!isOpen) return null;

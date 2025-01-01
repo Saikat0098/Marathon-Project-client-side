@@ -4,7 +4,7 @@ import { AuthContext } from '../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
-  // console.log(marathon_id);
+  //  (marathon_id);
   const {user} = useContext(AuthContext)
   const [update , setUpdate ] = useState([]) ; 
    useEffect(() => {
@@ -17,7 +17,7 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
  
  
   const sameIdMarathon = update.filter((marathon) => marathon._id === marathon_id);
-  // console.log("modal" , sameIdMarathon);
+  //  ("modal" , sameIdMarathon);
   
 
   if (!isOpen) return null;

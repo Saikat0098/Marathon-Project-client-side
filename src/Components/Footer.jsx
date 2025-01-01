@@ -32,7 +32,7 @@ const Footer = () => {
               <div className="space-y-2">
                 <a href="mailto:support@yourmail.ltd" className="flex items-center space-x-2 text-gray-400 hover:text-[#FF5E6C] transition-colors">
                   <Mail size={18} />
-                  <span>support@yourmail.ltd</span>
+                  <span>saikatislam680@gmail.com</span>
                 </a>
                 <a href="tel:+6221.2002.2012" className="flex items-center space-x-2 text-gray-400 hover:text-[#FF5E6C] transition-colors">
                   <Phone size={18} />
@@ -91,7 +91,7 @@ const Footer = () => {
           {/* Bottom Bar */}
           <div className="mt-16 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © 2024 FitnessPro. All rights reserved
+              © 2024 EarthForge. All rights reserved
             </div>
             
             {/* Social Links */}
