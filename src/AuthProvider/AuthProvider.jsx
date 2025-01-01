@@ -74,24 +74,30 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, async (currentUser) => {
-     if(currentUser?.email){
-      setUser(currentUser);
-      setUserUid(currentUser?.uid || null);
-      setMonUserId(currentUser?.uid || null);
-   
-      const {data} = await axios.post(`http://localhost:5500/jwt` , {
-        email:currentUser?.email ,
-    } , {withCredentials:true})
-    
-     }
-     else{
-      
-      setUser(currentUser);
-      const {data} = await axios.get(`http://localhost:5500/logout` , 
-        {withCredentials:true})
-     }
-     setLoading(false);
+      if (currentUser?.email) {
+        setUser(currentUser);
+        setUserUid(currentUser?.uid || null);
+        setMonUserId(currentUser?.uid || null);
+        
+        await axios.post('https://assignment11-server-side-six.vercel.app/jwt', {
+          email: currentUser?.email
+        }, {
+          withCredentials: true
+        });
+      } else {
+        setUser(currentUser)
+        setUserUid(currentUser?.uid || null);
+        setMonUserId(currentUser?.uid || null);
+        
+        
+      const {data} =   await axios.get('https://assignment11-server-side-six.vercel.app/logout', {
+          withCredentials: true
+        });
+        console.log(data);
+      }
+      setLoading(false);
     });
+  
     return () => unSubscribe();
   }, []);
 

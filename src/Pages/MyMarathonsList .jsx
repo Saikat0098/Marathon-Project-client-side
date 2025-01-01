@@ -16,7 +16,7 @@ const MyMarathonsList = () => {
   }, [user]);
 
   const fetchMyMarathonPost = async() =>{
-       const {data} = await axios.get(`http://localhost:5500/addMarathon/${user?.email}`)
+       const {data} = await axios.get(`https://assignment11-server-side-six.vercel.app/addMarathon/${user?.email}` , {withCredentials: true})
        setMarathons(data)
   }
   const handelDelete =   (id) => {
@@ -31,7 +31,7 @@ const MyMarathonsList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`http://localhost:5500/addMarathon/${id}`);
+          const response =   axios.delete(`https://assignment11-server-side-six.vercel.app/addMarathon/${id}`);
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
@@ -55,13 +55,17 @@ const MyMarathonsList = () => {
    };
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-center text-[#FD267D] mb-8">My Marathons</h1>
-
-      {marathons.length === 0 ? (
-        <p className="text-center text-gray-500">You haven't created any marathons yet.</p>
-      ) : (
-        <div className="hidden sm:block overflow-x-auto">
+    <div className="max-w-6xl mx-auto p-4 sm:p-6">
+    <h1 className="text-2xl sm:text-3xl font-bold text-center text-[#FD267D] mb-4 sm:mb-8">
+      My Marathons
+    </h1>
+    
+    {marathons.length === 0 ? (
+      <p className="text-center text-gray-500">You haven't created any marathons yet.</p>
+    ) : (
+      <>
+        {/* Desktop View */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full bg-white rounded-lg shadow-lg overflow-hidden">
             <thead className="bg-gradient-to-r from-[#FD267D] to-[#FF5E6C] text-white">
               <tr>
@@ -81,16 +85,14 @@ const MyMarathonsList = () => {
                   </td>
                   <td className="py-3 px-4 flex space-x-2">
                     <button
-                      onClick={() => handleOpenModal(marathon._id)}  
+                      onClick={() => handleOpenModal(marathon._id)}
                       className="text-blue-500 hover:text-blue-600 transition"
-                      aria-label="Update"
                     >
                       <FaEdit size={20} />
                     </button>
                     <button
-                    onClick={()=> handelDelete(marathon._id)}
+                      onClick={() => handelDelete(marathon._id)}
                       className="text-red-500 hover:text-red-600 transition"
-                      aria-label="Delete"
                     >
                       <FaTrashAlt size={20} />
                     </button>
@@ -100,16 +102,55 @@ const MyMarathonsList = () => {
             </tbody>
           </table>
         </div>
-      )}
 
-      <Modal
-        marathon_id={selectedMarathonId} 
-        setMarathons={setMarathons}
-        marathons={marathons}
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-      />
-    </div>
+        {/* Mobile View */}
+        <div className="md:hidden space-y-4">
+          {marathons.map((marathon) => (
+            <div key={marathon._id} className="bg-white rounded-lg shadow-lg p-4">
+              <div className="space-y-2 mb-3">
+                <div>
+                  <span className="font-semibold">Title: </span>
+                  {marathon.title}
+                </div>
+                <div>
+                  <span className="font-semibold">Location: </span>
+                  {marathon.location}
+                </div>
+                <div>
+                  <span className="font-semibold">Start Date: </span>
+                  {new Date(marathon.marathonStartDate).toLocaleDateString()}
+                </div>
+              </div>
+              <div className="flex justify-end space-x-4">
+                <button
+                  onClick={() => handleOpenModal(marathon._id)}
+                  className="text-blue-500 hover:text-blue-600 transition flex items-center"
+                >
+                  <FaEdit size={18} className="mr-1" />
+                  <span>Edit</span>
+                </button>
+                <button
+                  onClick={() => handelDelete(marathon._id)}
+                  className="text-red-500 hover:text-red-600 transition flex items-center"
+                >
+                  <FaTrashAlt size={18} className="mr-1" />
+                  <span>Delete</span>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </>
+    )}
+
+    <Modal
+      marathon_id={selectedMarathonId}
+      setMarathons={setMarathons}
+      marathons={marathons}
+      isOpen={isModalOpen}
+      onClose={() => setModalOpen(false)}
+    />
+  </div>
   );
 };
 

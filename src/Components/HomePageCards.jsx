@@ -14,7 +14,7 @@ const HomePageCards = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5500/homeMarathonSixCards')
+        fetch('https://assignment11-server-side-six.vercel.app/homeMarathonSixCards')
             .then(res => res.json())
             .then(data => setCards(data) )
     }, []);
@@ -27,7 +27,7 @@ const HomePageCards = () => {
                 </span>
             </div>
             <div className="w-10/12 mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mt-10">
-                {runningMarathon.slice(0-6 ).map(card => <HomePageCard key={card._id} card={card}></HomePageCard>)}
+                {runningMarathon.map(card => <HomePageCard key={card._id} card={card}></HomePageCard>)}
             </div>
         </section>
     );

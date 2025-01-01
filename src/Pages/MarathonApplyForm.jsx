@@ -30,7 +30,7 @@ const MarathonApplyForm = () => {
     const applyEmail = user?.email ; 
 
     const marathonApplyDetails = {marathonApplyId , marathonTitle , marathonStartDate , firstName , lastName ,contactNumber , applyEmail }
-     axios.post('http://localhost:5500/applyMarathon' , marathonApplyDetails)
+     axios.post('https://assignment11-server-side-six.vercel.app/applyMarathon' , marathonApplyDetails)
     .then(result => {
         console.log(result);
         if(result.data.insertedId){

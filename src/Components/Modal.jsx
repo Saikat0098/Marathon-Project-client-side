@@ -5,7 +5,7 @@ import Swal from 'sweetalert2';
 const Modal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
   const [update , setUpdate ] = useState([]) ; 
    useEffect(() => {
-    fetch('http://localhost:5500/addMarathon')
+    fetch('https://assignment11-server-side-six.vercel.app/addMarathon')
     .then(res => res.json())
     .then(data => setUpdate(data))
   } , [])
@@ -24,7 +24,7 @@ const Modal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
     const updateData = Object.fromEntries(formData.entries());
 
     try {
-      const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
+      const response = await axios.put(`https://assignment11-server-side-six.vercel.app/UpdateMarathon/${marathon_id}`, updateData);
       if (response.data) {
         Swal.fire({
           title: 'success!',

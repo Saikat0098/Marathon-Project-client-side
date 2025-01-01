@@ -85,23 +85,29 @@ const Navbar = () => {
               home
             </li>
           </NavLink>
-          <NavLink to="/" onClick={() => setMobileSidebarOpen(false)}>
+          <NavLink to="/Marathons">
+          <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
+            Marathons
+          </li>
+        </NavLink>
+        {
+          user?.email &&   <NavLink to="/Dashboard">
+          <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
+            Dashboard
+          </li>
+        </NavLink>
+        }
+          {/* <NavLink to="/" onClick={() => setMobileSidebarOpen(false)}>
             <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize"></li>
-          </NavLink>
-          <NavLink to="/" onClick={() => setMobileSidebarOpen(false)}>
-            <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize"></li>
-          </NavLink>
-          <NavLink to="/" onClick={() => setMobileSidebarOpen(false)}>
-            <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize"></li>
-          </NavLink>
-          <NavLink
+          </NavLink> */}
+          {/* <NavLink
             to="/myDonations"
             onClick={() => setMobileSidebarOpen(false)}
           >
             <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
               My Donations
             </li>
-          </NavLink>
+          </NavLink> */}
           <NavLink to="/login" onClick={() => setMobileSidebarOpen(false)}>
             <li className="before:w-0 hover:before:w-full before:bg-[#FF5E6C] before:h-[2px] before:transition-all before:duration-300 before:absolute relative before:rounded-full before:bottom-[-2px] hover:text-[#FF5E6C] transition-all duration-300 before:left-0 cursor-pointer capitalize">
               Login

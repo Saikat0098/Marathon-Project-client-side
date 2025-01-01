@@ -8,6 +8,7 @@ import Dashboard from "../Pages/Dashboard";
 import MarathonDetailsPage from "../Components/MarathonDetailsPage";
 import MarathonApplyForm from "../Pages/MarathonApplyForm";
 import NotFound from "../Pages/NotFound";
+import PrivetRout from "./PrivetRout";
 
 const routs = createBrowserRouter([
     {
@@ -29,19 +30,21 @@ const routs = createBrowserRouter([
             {
                 path:'Marathons',
                 element:<Marathons></Marathons> , 
-                loader:() => fetch('http://localhost:5500/addMarathon')
+                loader:() => fetch('https://assignment11-server-side-six.vercel.app/addMarathon')
             } , 
             {
                 path:'marathonDetails/:id',
-                element:<MarathonDetailsPage></MarathonDetailsPage> , 
+                element: <PrivetRout>
+                    <MarathonDetailsPage></MarathonDetailsPage> 
+                </PrivetRout> , 
                 
-                loader:() => fetch(`http://localhost:5500/addMarathon`)
+                loader:() => fetch(`https://assignment11-server-side-six.vercel.app/addMarathon`)
             },
             {
 
                 path:"marathonApplyForm/:id" , 
                 element:<MarathonApplyForm></MarathonApplyForm> , 
-                loader:() => fetch(`http://localhost:5500/addMarathon`)
+                loader:() => fetch(`https://assignment11-server-side-six.vercel.app/addMarathon`)
 
             } , 
             {
