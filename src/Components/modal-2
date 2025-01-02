@@ -7,7 +7,7 @@
 //   const [update , setUpdate ] = useState([]) ; 
 //    console.log("id..." , marathon_id);
 //   useEffect(() => {
-//     fetch('http://localhost:5500/applyMarathon')
+//     fetch('https://assignment11-server-side-six.vercel.app/applyMarathon')
 //     .then(res => res.json())
 //     .then(data => setUpdate(data))
 //   } , [])
@@ -25,7 +25,7 @@
 //     const updateData = Object.fromEntries(formData.entries());
 
 //     try {
-//       const response = await axios.put(`http://localhost:5500/applyMarathon/${marathon_id}`, updateData);
+//       const response = await axios.put(`https://assignment11-server-side-six.vercel.app/applyMarathon/${marathon_id}`, updateData);
 //       if (response.data) {
 //         // Update the parent state
 //         setMarathons((prevMarathons) =>

@@ -17,7 +17,7 @@ console.log(marathons);
   }, [user, search]);
 
   const fetchMyMarathonPost = async () => {
-    const { data } = await axios.get(`http://localhost:5500/applyMarathon/${user?.email}?search=${search}` , {withCredentials:true});
+    const { data } = await axios.get(`https://assignment11-server-side-six.vercel.app/applyMarathon/${user?.email}?search=${search}` , {withCredentials:true});
     setMarathons(data);
   };
 
@@ -37,7 +37,7 @@ console.log(marathons);
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`http://localhost:5500/applyMarathon/${id}` , {withCredentials: true});
+          const response =   axios.delete(`https://assignment11-server-side-six.vercel.app/applyMarathon/${id}` , {withCredentials: true});
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",

@@ -11,9 +11,7 @@ const MarathonCard = ({ marathonCard }) => {
     endRegistrationDate,
     _id,
   } = marathonCard;
-
-  console.log(marathonCard);
-  return (
+   return (
     <div className="flex justify-center">
       <div className="group relative bg-gradient-to-b from-gray-50 to-gray-100 w-full sm:w-80 md:w-96 shadow-xl rounded-lg overflow-hidden transform transition duration-500 hover:-translate-y-2 hover:shadow-2xl py-5">
         {/* Marathon Image */}

@@ -5,8 +5,7 @@ import HomePageCard from "./HomePageCard";
 
 const HomePageCards = () => {
     const [cards, setCards] = useState([]);
-    console.log
-     const [campaignCards , setCampaignCards] = useState([]) ;
+          const [campaignCards , setCampaignCards] = useState([]) ;
     const currentDate = new Date();
     const runningMarathon = cards 
     .filter((running) => new Date(running.endRegistrationDate) > currentDate) ; 
@@ -14,7 +13,7 @@ const HomePageCards = () => {
 
 
     useEffect(() => {
-        fetch('http://localhost:5500/homeMarathonSixCards')
+        fetch('https://assignment11-server-side-six.vercel.app/homeMarathonSixCards')
             .then(res => res.json())
             .then(data => setCards(data) )
     }, []);

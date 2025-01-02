@@ -16,7 +16,7 @@ const MyMarathonsList = () => {
   }, [user]);
 
   const fetchMyMarathonPost = async() =>{
-       const {data} = await axios.get(`http://localhost:5500/addMarathon/${user?.email}` , {withCredentials: true})
+       const {data} = await axios.get(`https://assignment11-server-side-six.vercel.app/addMarathon/${user?.email}` , {withCredentials: true})
        setMarathons(data)
   }
   const handelDelete =   (id) => {
@@ -31,7 +31,7 @@ const MyMarathonsList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`http://localhost:5500/addMarathon/${id}`);
+          const response =   axios.delete(`https://assignment11-server-side-six.vercel.app/addMarathon/${id}`);
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",

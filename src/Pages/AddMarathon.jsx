@@ -46,7 +46,7 @@ const AddMarathon = () => {
     console.log(AllMarathonData);
     axios
       .post(
-        "http://localhost:5500/addMarathon",
+        "https://assignment11-server-side-six.vercel.app/addMarathon",
         AllMarathonData
       )
       .then((result) => {

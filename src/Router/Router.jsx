@@ -30,7 +30,7 @@ const routs = createBrowserRouter([
             {
                 path:'Marathons',
                 element:<Marathons></Marathons> , 
-                loader:() => fetch('http://localhost:5500/addMarathon')
+                loader:() => fetch('https://assignment11-server-side-six.vercel.app/addMarathon')
             } , 
             {
                 path:'marathonDetails/:id',
@@ -38,13 +38,13 @@ const routs = createBrowserRouter([
                     <MarathonDetailsPage></MarathonDetailsPage> 
                 </PrivetRout> , 
                 
-                loader:() => fetch(`http://localhost:5500/addMarathon`)
+                loader:() => fetch(`https://assignment11-server-side-six.vercel.app/addMarathon`)
             },
             {
 
                 path:"marathonApplyForm/:id" , 
                 element:<MarathonApplyForm></MarathonApplyForm> , 
-                loader:() => fetch(`http://localhost:5500/addMarathon`)
+                loader:() => fetch(`https://assignment11-server-side-six.vercel.app/addMarathon`)
 
             } , 
             {

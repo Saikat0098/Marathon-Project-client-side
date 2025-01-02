@@ -20,7 +20,7 @@ const MarathonDetailsCard = ({ marathonDetailsCard,   }) => {
 
   // console.log(tota);
   useEffect(()=>{
-    fetch('http://localhost:5500/applyMarathon')
+    fetch('https://assignment11-server-side-six.vercel.app/applyMarathon')
     .then(res => res.json())
     .then(data => setTotalApply(data))
   } , [])
