@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
   const [monUserId, setMonUserId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-   (user);
+  console.log(user);
   const createNewUser = async (email, password) => {
     setLoading(true);
     try {
@@ -79,7 +79,7 @@ const AuthProvider = ({ children }) => {
         setUserUid(currentUser?.uid || null);
         setMonUserId(currentUser?.uid || null);
         
-        await axios.post('https://assignment11-server-side-six.vercel.app/jwt', {
+        await axios.post('http://localhost:5500/jwt', {
           email: currentUser?.email
         }, {
           withCredentials: true
@@ -90,10 +90,10 @@ const AuthProvider = ({ children }) => {
         setMonUserId(currentUser?.uid || null);
         
         
-      const {data} =   await axios.get('https://assignment11-server-side-six.vercel.app/logout', {
+      const {data} =   await axios.get('http://localhost:5500/logout', {
           withCredentials: true
         });
-         (data);
+        console.log(data);
       }
       setLoading(false);
     });

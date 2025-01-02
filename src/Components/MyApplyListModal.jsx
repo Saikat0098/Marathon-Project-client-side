@@ -4,11 +4,11 @@ import { AuthContext } from '../AuthProvider/AuthProvider';
 import Swal from 'sweetalert2';
 
 const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
-  //  (marathon_id);
+  // console.log(marathon_id);
   const {user} = useContext(AuthContext)
   const [update , setUpdate ] = useState([]) ; 
    useEffect(() => {
-    fetch('https://assignment11-server-side-six.vercel.app/applyMarathon')
+    fetch('http://localhost:5500/applyMarathon' ,  {withCredentials: true})
     .then(res => res.json())
     .then(data => setUpdate(data))
   } , [])
@@ -17,7 +17,7 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
  
  
   const sameIdMarathon = update.filter((marathon) => marathon._id === marathon_id);
-  //  ("modal" , sameIdMarathon);
+  // console.log("modal" , sameIdMarathon);
   
 
   if (!isOpen) return null;
@@ -28,7 +28,7 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
     const updateData = Object.fromEntries(formData.entries());
 
     try {
-      const response = await axios.put(`https://assignment11-server-side-six.vercel.app/UpdateMarathon/${marathon_id}`, updateData);
+      const response = await axios.put(`http://localhost:5500/UpdateMarathon/${marathon_id}`, updateData);
       if (response.data) {
         
         Swal.fire({

@@ -11,13 +11,13 @@ const MyApplyList = () => {
   const [selectedMarathonId, setSelectedMarathonId] = useState(null);
   const [marathons, setMarathons] = useState([]);
   const [search, setSearch] = useState('');
-
+console.log(marathons);
   useEffect(() => {
     fetchMyMarathonPost();
   }, [user, search]);
 
   const fetchMyMarathonPost = async () => {
-    const { data } = await axios.get(`https://assignment11-server-side-six.vercel.app/applyMarathon/${user?.email}?search=${search}` , {withCredentials:true});
+    const { data } = await axios.get(`http://localhost:5500/applyMarathon/${user?.email}?search=${search}` , {withCredentials:true});
     setMarathons(data);
   };
 
@@ -37,7 +37,7 @@ const MyApplyList = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`https://assignment11-server-side-six.vercel.app/applyMarathon/${id}`);
+          const response =   axios.delete(`http://localhost:5500/applyMarathon/${id}` , {withCredentials: true});
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",

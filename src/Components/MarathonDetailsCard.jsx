@@ -18,9 +18,9 @@ const MarathonDetailsCard = ({ marathonDetailsCard,   }) => {
 
   const [totalApply , setTotalApply ] = useState([]) ; 
 
-  //  (tota);
+  // console.log(tota);
   useEffect(()=>{
-    fetch('https://assignment11-server-side-six.vercel.app/applyMarathon')
+    fetch('http://localhost:5500/applyMarathon')
     .then(res => res.json())
     .then(data => setTotalApply(data))
   } , [])

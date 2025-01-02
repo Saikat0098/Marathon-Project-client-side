@@ -12,6 +12,7 @@ const MarathonCard = ({ marathonCard }) => {
     _id,
   } = marathonCard;
 
+  console.log(marathonCard);
   return (
     <div className="flex justify-center">
       <div className="group relative bg-gradient-to-b from-gray-50 to-gray-100 w-full sm:w-80 md:w-96 shadow-xl rounded-lg overflow-hidden transform transition duration-500 hover:-translate-y-2 hover:shadow-2xl py-5">
@@ -50,7 +51,7 @@ const MarathonCard = ({ marathonCard }) => {
         <div className="text-right">
           <Link to={`/marathonDetails/${_id}`}>
             <button
-              className="py-[7px] px-[16px] text-[1rem] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex hidden   text-right"
+              className="py-[7px] px-[16px] text-[1rem] rounded-full capitalize bg-[#FF5E6C] text-white hover:bg-[#FD267D] transition-all duration-300 sm:flex     text-right"
             >
               See Details &rarr;
             </button>
