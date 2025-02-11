@@ -1,6 +1,6 @@
 import React from 'react';
 import { Calendar, Clock, MapPin, Users, ChevronRight } from 'lucide-react';
-
+ 
 const marathonData = [
   {
     title: "Elite Marathon Challenge",

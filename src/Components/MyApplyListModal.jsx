@@ -17,8 +17,7 @@ const MyApplyListModal = ({ isOpen, onClose , marathon_id , setMarathons}) => {
  
  
   const sameIdMarathon = update.filter((marathon) => marathon._id === marathon_id);
-  // console.log("modal" , sameIdMarathon);
-  
+   
 
   if (!isOpen) return null;
 

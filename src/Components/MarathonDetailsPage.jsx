@@ -17,6 +17,7 @@ const MarathonDetailsPage = () => {
       </div>
         </div>
           {
+            
             detailsCard.map(card => <MarathonDetailsCard key={card._id} marathonDetailsCard={card}></MarathonDetailsCard>)
           }
       </section>
