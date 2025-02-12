@@ -5,7 +5,7 @@ import MarathonCard from '../Components/MarathonCard';
 const Marathons = () => {
   const [loading, setLoading] = useState(true);
   const data = useLoaderData();
-  const [marathons, setMarathons] = useState(data);
+ 
  
   React.useEffect(() => {
     if (data) {
