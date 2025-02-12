@@ -5,6 +5,7 @@ import { Link, NavLink } from "react-router-dom";
 import { AuthContext } from "../AuthProvider/AuthProvider";
 import { Sun, Moon } from "lucide-react";
 import ToggleTheme from "./ToggleTheme";
+import ThemeToggle from "./ToggleTheme";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
@@ -56,7 +57,7 @@ const Navbar = () => {
 
       {user?.email ? (
         <div className="flex items-center gap-6">
-           
+           <ThemeToggle></ThemeToggle>
           <img
             className="w-10 h-10 rounded-full"
             src={user?.email && user.photoURL}
