@@ -11,21 +11,33 @@ const MyApplyList = () => {
   const [selectedMarathonId, setSelectedMarathonId] = useState(null);
   const [marathons, setMarathons] = useState([]);
   const [search, setSearch] = useState('');
-console.log(marathons);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     fetchMyMarathonPost();
   }, [user, search]);
 
   const fetchMyMarathonPost = async () => {
-    const { data } = await axios.get(`https://assignment11-server-side-six.vercel.app/applyMarathon/${user?.email}?search=${search}` , {withCredentials:true});
-    setMarathons(data);
+    try {
+      setLoading(true);
+      const { data } = await axios.get(
+        `https://assignment11-server-side-six.vercel.app/applyMarathon/${user?.email}?search=${search}`,
+        { withCredentials: true }
+      );
+      setMarathons(data);
+    } catch (error) {
+      console.error("Error fetching marathons:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleOpenModal = (marathonId) => {
     setSelectedMarathonId(marathonId);
     setModalOpen(true);
   };
-  const handelDelete =   (id) => {
+
+  const handelDelete = (id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -37,14 +49,16 @@ console.log(marathons);
     }).then((result) => {
       if (result.isConfirmed) {
         try {
-          const response =   axios.delete(`https://assignment11-server-side-six.vercel.app/applyMarathon/${id}` , {withCredentials: true});
+          const response = axios.delete(
+            `https://assignment11-server-side-six.vercel.app/applyMarathon/${id}`,
+            { withCredentials: true }
+          );
           if (response.deletedCount > 0) {
             Swal.fire({
               title: "Deleted!",
               text: "Your file has been deleted.",
               icon: "success"
             });
-          
           }
         } catch (error) {
           console.error("Error deleting marathon:", error);
@@ -52,8 +66,16 @@ console.log(marathons);
         setMarathons((prevMarathons) => prevMarathons.filter((marathon) => marathon._id !== id));
       }
     });
-  
   };
+
+  if (loading) {
+    return (
+      <div className="h-screen flex justify-center items-center">
+         <span className="loading loading-bars loading-lg"></span>
+
+      </div>
+    );
+  }
 
   return (
     <div className="w-full max-w-6xl mx-auto p-4 sm:p-6">
@@ -106,7 +128,7 @@ console.log(marathons);
                             <FaEdit size={20} />
                           </button>
                           <button
-                          onClick={()=>handelDelete(marathon._id)}
+                            onClick={() => handelDelete(marathon._id)}
                             className="text-red-500 hover:text-red-600 transition"
                             aria-label="Delete"
                           >
@@ -144,7 +166,7 @@ console.log(marathons);
                         <span>Edit</span>
                       </button>
                       <button
-                      onClick={()=> handelDelete(marathon._id)}
+                        onClick={() => handelDelete(marathon._id)}
                         className="flex items-center text-red-500 hover:text-red-600"
                       >
                         <FaTrashAlt size={18} className="mr-1" />
