@@ -22,7 +22,7 @@ const AuthProvider = ({ children }) => {
   const [monUserId, setMonUserId] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  console.log(user);
+  (user);
   const createNewUser = async (email, password) => {
     setLoading(true);
     try {
@@ -93,7 +93,7 @@ const AuthProvider = ({ children }) => {
       const {data} =   await axios.get('https://assignment11-server-side-six.vercel.app/logout', {
           withCredentials: true
         });
-        console.log(data);
+        (data);
       }
       setLoading(false);
     });
