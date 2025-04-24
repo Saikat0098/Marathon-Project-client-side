@@ -78,8 +78,8 @@ const Header = () => {
                     ))}
                   </div>
                   <div className="flex items-center gap-6">
-                    <Link to="#" className={`px-8 py-4 bg-gradient-to-r ${slide.gradient} rounded-lg text-white font-medium hover:bg-opacity-80 transition-all`}>Join the Marathon</Link>
-                    <Link to="#" className="px-8 py-4 border border-white/10 rounded-lg text-white font-medium flex items-center gap-2 hover:bg-white/10 transition-all">
+                    <Link to="/Marathons" className={`px-8 py-4 bg-gradient-to-r ${slide.gradient} rounded-lg text-white font-medium hover:bg-opacity-80 transition-all`}>Join the Marathon</Link>
+                    <Link to="https://youtu.be/fSELvEwBGZQ?si=F3AItTQGXmiRbf59" className="px-8 py-4 border border-white/10 rounded-lg text-white font-medium flex items-center gap-2 hover:bg-white/10 transition-all">
                       <FaPlay className="text-sm" /> Watch Highlights
                     </Link>
                   </div>

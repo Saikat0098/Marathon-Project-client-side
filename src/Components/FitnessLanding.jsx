@@ -1,5 +1,6 @@
 import React from 'react';
 import { ChevronRight, Menu } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const FitnessLanding = () => {
   return (
@@ -97,12 +98,12 @@ const FitnessLanding = () => {
 
               {/* CTA Button */}
               <div className="pt-4">
-                <button className="w-full sm:w-auto bg-gradient-to-r from-[#FF5E6C] to-[#FD267D] text-white px-8 py-3 rounded-full font-semibold 
+                <Link to={'/Marathons'} className="w-full sm:w-auto bg-gradient-to-r from-[#FF5E6C] to-[#FD267D] text-white px-8 py-3 rounded-full font-semibold 
                                  hover:shadow-[#FF5E6C]/50 transform hover:-translate-y-1 transition-all duration-300
                                  shadow-lg hover:shadow-xl relative overflow-hidden group">
                   <span className="relative z-10">Join Now</span>
                   <div className="absolute inset-0 bg-gradient-to-r from-[#FD267D] to-[#FF5E6C] opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                </button>
+                </Link>
               </div>
 
              
