@@ -9,21 +9,21 @@ import ThemeToggle from "./ToggleTheme";
 
 const Navbar = () => {
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
-  // const [isDark, setIsDark] = useState(
-  //   localStorage.getItem("theme") === "dark"
-  // );
+  const [isDark, setIsDark] = useState(
+    localStorage.getItem("theme") === "dark"
+  );
   const { user, logOut } = useContext(AuthContext);
 
-  // const toggleTheme = () => {
-  //   setIsDark(!isDark);
-  //   if (!isDark) {
-  //     document.documentElement.classList.add("dark");
-  //     localStorage.setItem("theme", "dark");
-  //   } else {
-  //     document.documentElement.classList.remove("dark");
-  //     localStorage.setItem("theme", "light");
-  //   }
-  // };
+  const toggleTheme = () => {
+    setIsDark(!isDark);
+    if (!isDark) {
+      document.documentElement.classList.add("dark");
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+      localStorage.setItem("theme", "light");
+    }
+  };
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 px-4 bg-white dark:bg-gray-900 py-3 flex items-center justify-between h-[60px] transition-colors duration-300">
